@@ -20,4 +20,6 @@
   [:.grid {:width (percent 100)
          }]
   [:.row {:height (px 91)}]
+
+  [:.display {:width (percent 100)}]
   )

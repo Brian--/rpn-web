@@ -30,29 +30,31 @@
   [re-com/button
    :label "⏎"
    :on-click #(re-frame/dispatch [:enter])
-   :class "enter calc rounded-bottom rounded-right"])
+   :class "enter calc"])
 
 (defn input-field
   []
   [re-com/input-text
+   :disabled? true
    :model (re-frame/subscribe [:query-input])
    :on-change nofn
-   :class "input display uneditable-input"])
+   :class "input display"])
 
 (defn input-history
   []
   [re-com/input-textarea
    :rows 3
+   :disabled? true
    :model (re-frame/subscribe [:query-stack])
    :on-change nofn
+   :class "display"
    :style {:resize   "vertical"
            :overflow "auto"}
   ])
 
 (defn main-panel []
   [re-com/v-box :class "calc grid column":height "100%" :width "283"
-   :children [[title]
-              [input-history]
+   :children [[input-history]
               [input-field]
               [re-com/h-box :class "calc grid row":justify :around
                :children [[num-button 7]   [num-button 8]   [num-button 9] [op-button "/" / 2]]]
