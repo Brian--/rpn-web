@@ -20,4 +20,5 @@ pom.xml.asc
 .cpcache/
 
 *.css
+!/resources/public/vendor/css/*
 .rebel_readline_history
