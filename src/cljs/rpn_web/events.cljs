@@ -4,7 +4,7 @@
    [rpn-web.db :as db]
    [day8.re-frame.tracing :refer-macros [fn-traced defn-traced]]
    [cljs.reader :refer [read-string]]
-   [brian.util :refer [number trimclo]]))
+   [brian.util :refer [number trimclo validate]]))
 
 (re-frame/reg-event-db
  ::initialize-db
@@ -36,7 +36,7 @@
              #(apply conj ((juxt
                             drop
                             (comp (partial apply op) reverse take))
-                           arity %))))
+                           (validate number? arity (count %)) %))))
 (re-frame/reg-event-fx
  :operate (fn-traced [coeffects event]
                      (-> coeffects

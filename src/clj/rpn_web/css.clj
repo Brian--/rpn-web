@@ -4,22 +4,22 @@
             [garden.units :refer :all]))
 
 (defstyles screen
-  [:body      {:background-color (rgb 72 61 63)}]
-  [:.numpad   {:background-color (rgb 0 144 234)}]
-  [:.operator {:background-color (rgb 163 154 146)}]
-  [:.enter    {:background-color (rgb 119 104 93)}]
+  [:body   {:background-color (rgb 72 61 63)}]
+  [:.num   {:background-color (rgb 0 144 234)}]
+  [:.op    {:background-color (rgb 163 154 146)}]
+  [:.enter {:background-color (rgb 119 104 93)}]
 
   [:button.calc {:border "none"
                  :border-radius (px 0)
                  :font-size (px 22)
                  :font-weight 300
-                 :width (px 65)
-                 :height (percent 98)
+                 :width (percent 99)
+                 :height (percent 99)
                  }]
 
-  [:.grid {:width (percent 100)
-         }]
-  [:.row {:height (px 91)}]
-
-  [:.display {:width (percent 100)}]
+  [:.display {:width (em 36)}]
+  [:#numpad {:display "grid"
+             :grid    "repeat(5, 10em) / auto-flow 25%"}]
+  [:#calc {:width  (em (* 4 9))
+           :height (em (* 4 15))}]
   )

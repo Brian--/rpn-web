@@ -16,14 +16,14 @@
   [re-com/button
    :label (str val)
    :on-click #(re-frame/dispatch [:display val])
-   :class "numpad calc"])
+   :class "num calc"])
 
 (defn op-button
-  [displ opfn arity]
-  [re-com/button
-   :label (str displ)
-   :on-click #(re-frame/dispatch [:operate opfn arity])
-   :class "operator calc"])
+  [displ & opfn]
+   [re-com/button
+    :label (str displ)
+    :on-click #(re-frame/dispatch (into [:operate] opfn))
+    :class "op calc"])
 
 (defn enter-button
   []
@@ -38,7 +38,7 @@
    :disabled? true
    :model (re-frame/subscribe [:query-input])
    :on-change nofn
-   :class "input display"])
+   :class "display"])
 
 (defn input-history
   []
@@ -49,19 +49,36 @@
    :on-change nofn
    :class "display"
    :style {:resize   "vertical"
-           :overflow "auto"}
-  ])
+           :overflow "auto"}])
 
 (defn main-panel []
-  [re-com/v-box :class "calc grid column":height "100%" :width "283"
-   :children [[input-history]
-              [input-field]
-              [re-com/h-box :class "calc grid row":justify :around
-               :children [[num-button 7]   [num-button 8]   [num-button 9] [op-button "/" / 2]]]
-              [re-com/h-box :class "calc grid row":justify :around
-               :children [[num-button 4]   [num-button 5]   [num-button 6] [op-button "*" * 2]]]
-              [re-com/h-box :class "calc grid row":justify :around
-               :children [[num-button 1]   [num-button 2]   [num-button 3] [op-button "-" - 2]]]
-              [re-com/h-box :class "calc grid row":justify :around
-               :children [[op-button "-" - 1] [num-button 0]   [op-button "+" + 2] [enter-button]]]
-              ]])
+  [:div {:id "calc"}
+   [input-history]
+   [input-field]
+   [:div {:id "numpad"}
+    [op-button "clear" (constantly 0)] ;TODO [empty] after `swap` fix
+    [num-button 7]
+    [num-button 4]
+    [num-button 1]
+    [num-button "."]
+
+    [op-button "drop" (fn [a _] a) 2] ;TODO [(constantly '()) 1] after `swap` fix
+    [num-button 8]
+    [num-button 5]
+    [num-button 2]
+    [num-button 0]
+
+    [op-button "swap" (fn [a b] (seq [b a])) 2] ;FIXME `into` stack if ret of opfn is seq
+    [num-button 9]
+    [num-button 6]
+    [num-button 3]
+    [op-button "(-)" - 1]
+
+    [op-button "+" + 2]
+    [op-button "-" - 2]
+    [op-button "*" * 2]
+    [op-button "/" / 2]
+    [enter-button]
+
+    ]
+   ])
