@@ -1,0 +1,38 @@
+body {
+  background-color: #483d3f;
+}
+
+.num {
+  background-color: #0090ea;
+}
+
+.op {
+  background-color: #a39a92;
+}
+
+.enter {
+  background-color: #77685d;
+}
+
+button.calc {
+  border: none;
+  border-radius: 0px;
+  font-size: 22px;
+  font-weight: 300;
+  width: 99%;
+  height: 99%;
+}
+
+.display {
+  width: 36em;
+}
+
+#numpad {
+  display: grid;
+  grid: repeat(5, 10em) / auto-flow 25%;
+}
+
+#calc {
+  width: 36em;
+  height: 60em;
+}
